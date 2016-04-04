@@ -3,6 +3,7 @@
 
 #include<vector>
 #include"Pixel.hpp"
+#include"Particle.hpp"
 #include <assert.h>
 
 
@@ -34,6 +35,43 @@ namespace particle_tools {
                 return (x >= 0) && (x < (int) _xsize) &&
                        (y >= 0) && (y < (int) _ysize) &&
                        (z >= 0) && (z < (int) _zsize);
+            }
+
+            /// Check ownership of other particles
+            /// in the boundary of a position
+            bool search_border(const Particle& p,
+                               int x, int y, int z) {
+
+                int sep = p.sep();
+
+                for(int i = -sep; i <= sep; i++)
+                    for(int j = -sep; j <= sep; j++)
+                        for(int k = -sep; k <= sep; k++) {
+                            if(in_texture(x+i, y+j, z+k)) {
+                                int value = (*this)(x+i, y+j, z+k);
+                                if(value > 0 && value != p.id())
+                                    return true;
+                            }
+                        }
+
+                return false;
+            }
+
+            /// Set boundary of particle
+            /// retaining ownership on it
+            void set_border(const Particle& p,
+                               int x, int y, int z) {
+
+                int sep = p.sep();
+
+                for(int i = -sep; i <= sep; i++)
+                    for(int j = -sep; j <= sep; j++)
+                        for(int k = -sep; k <= sep; k++) {
+                            if(in_texture(x+i, y+j, z+k)) {
+                                (*this)(x+i, y+j, z+k) = p.id();
+                            }
+                        }
+
             }
 
             int xsize() const {return _xsize;}

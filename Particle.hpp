@@ -10,9 +10,9 @@ class Particle {
 
         /// Constructor
 
-        Particle(int id, int rand, bool alive, int max_size) :
+        Particle(int id, int rand, bool alive, int max_size, int sep) :
             _id(id), _randomness(rand), _alive(alive),
-            _max_size(max_size)
+            _max_size(max_size), _sep(sep)
         {
             init();
         }
@@ -31,12 +31,17 @@ class Particle {
 
         void grow();
 
+        /// Getters
+        const int& id() const {return _id;}
+        const int& sep() const {return _sep;}
+
     private:
         int _id;
         int _size;
         float _randomness;
         bool _alive;
         int _max_size;
+        int _sep;
 
         std::vector<std::vector<int>> _boundary;
 
