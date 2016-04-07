@@ -90,6 +90,9 @@ namespace particle_tools {
     VolumetricTexture owner(xsize, ysize, zsize, -1);
 
 
+    void init_particles() {
+
+    }
 
 }
 
