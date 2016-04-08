@@ -1,6 +1,7 @@
 #include"Particle.hpp"
 #include"Particle_tools.hpp"
 #include"Runge_Kutta.hpp"
+#include"Generation_data.hpp"
 
 #include<random>
 

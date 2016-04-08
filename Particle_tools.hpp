@@ -5,16 +5,10 @@
 #include"Pixel.hpp"
 #include"Particle.hpp"
 #include <assert.h>
+#include"Generation_data.hpp"
 
 
 namespace particle_tools {
-
-    int xsize = 256;
-    int ysize = 256;
-    int zsize = 256;
-
-    /// L
-
 
     class VolumetricTexture {
         public:
@@ -83,15 +77,23 @@ namespace particle_tools {
             std::vector<int> _data;
     };
 
-    /// L
-    VolumetricTexture occ(xsize, ysize, zsize, 1);
-
-    /// L2
-    VolumetricTexture owner(xsize, ysize, zsize, -1);
 
 
-    void init_particles() {
 
+
+    void init_particles(const int cant_particles,
+                        Generation_Data& data,
+                        std::vector<Particle> & particles)
+    {
+        particles.clear();
+
+        for(int i = 0; i < cant_particles; i++) {
+            Particle p(i, data.randomness(), true, data.max_size(), 1);
+
+            p.grow();
+
+            particles.push_back(p);
+        }
     }
 
 }

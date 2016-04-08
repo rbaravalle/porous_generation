@@ -1,13 +1,20 @@
 #include <iostream>
 
-#include"Particle.hpp"
+//#include"Particle.hpp"
+#include"Particle_tools.hpp"
 
 using namespace std;
 
 int main()
 {
-    Particle p(0, 0.0, true, 1000, 1);
-    cout << "Hello World!" << endl;
+
+    cout << "Creating" << 10 << "particles..." << endl;
+
+    vector<Particle> particles;
+
+    particle_tools::init_particles(10, particles);
+
+
     return 0;
 }
 
