@@ -76,6 +76,4 @@ private:
     float _randomness_z;
 };
 
-//} // namespace
-
 #endif // RUNGE_KUTTA_H

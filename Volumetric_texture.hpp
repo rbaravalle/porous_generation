@@ -4,7 +4,6 @@
 #include<vector>
 #include"Pixel.hpp"
 #include <assert.h>
-//nclude"Particle.hpp"
 
 class VolumetricTexture {
     public:

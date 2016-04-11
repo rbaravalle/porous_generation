@@ -6,9 +6,6 @@ using namespace std;
 
 int main()
 {
-
-
-
     int xsize = 255;
     int ysize = 255;
     int zsize = 255;
