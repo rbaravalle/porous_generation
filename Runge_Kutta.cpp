@@ -1,5 +1,9 @@
 #include"Runge_Kutta.hpp"
 
+#include<iostream>
+
+using namespace std;
+
 void Runge_Kutta::f1(const float v0, const float v1, const float v2,
                      std::vector<float> & res) const
 {
@@ -15,8 +19,6 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
          const bool inv) const
 {
     res.clear();
-
-
 
     float xp0 = x*(_dXm1)+(_x0+cx);
     float xp1 = y*(_dYm1)+(_y0+cy);
@@ -84,6 +86,8 @@ void Runge_Kutta::init() {
         _y1 = 3.0;
         _z0 = -1;
         _z1 = 1;
+
+        _dT = 0.1;
     }
 
     _diffX = _x1-_x0;

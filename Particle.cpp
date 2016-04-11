@@ -3,6 +3,8 @@
 
 #include<random>
 
+#include<iostream>
+
 using namespace std;
 
 namespace porous {
@@ -29,6 +31,9 @@ void Particle::init()
     y = (int) (((double) rand() / (RAND_MAX)) * _occ.ysize());
     z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
 
+    cout << "Initial position: " << x << ", " << y << ", "
+         << z << endl;
+
 
     _occ(x,y,z) = 0;
 
@@ -37,10 +42,13 @@ void Particle::init()
     // mark boundary
     _owner.set_border(id(), sep(), x, y, z);
 
+    add(x,y,z);
+
 }
 
 void Particle::grow()
 {
+    cout << "Growing particle.." << endl;
     for(int r = 0; r < 2; r++) {
         int len_boundary = _boundary.size();
 
@@ -56,7 +64,6 @@ void Particle::grow()
                 _owner(nx, ny, nz) = _id;
 
                 add(nx, ny, nz);
-                _size++;
 
                 // found!
                 break;
@@ -70,10 +77,16 @@ void Particle::grow()
     }
 
     if(_size > _max_size) _alive = false;
+
+    cout << "Size of particle " << _id << " after growing: "
+         << _size << endl;
 }
 
 void Particle::add(int x, int y, int z)
 {
+
+    cout << "Particle::add" << endl;
+    cout << "Previous boundary size: " << _boundary.size() << endl;
 
     vector<float> runge_k_res;
 
@@ -113,7 +126,7 @@ void Particle::add(int x, int y, int z)
 
                     // randomly add voxels to the boundary
                     // using the particle random parameter
-                    if(rand() / RAND_MAX > (1.0 - _randomness)) {
+                    if(rand() / (float)RAND_MAX > (1.0 - _randomness)) {
                         vector<int> new_voxel {xh, yh, zh};
                         _boundary.push_back(new_voxel);
                     }
@@ -122,6 +135,8 @@ void Particle::add(int x, int y, int z)
         }
     }
 
+    _occ(x,y,z) = 0;
+    _size++;
     _occ.set_border(id(), sep(), x, y, z);
 
     vector<int> new_voxel {best_x, best_y, best_z};
@@ -136,6 +151,8 @@ void Particle::add(int x, int y, int z)
         vector<int> new_voxel {x, y, z + temp};
         _boundary.push_back(new_voxel);
     }
+
+    cout << "New Boundary size: " << _boundary.size() << endl;
 }
 
 } // namespace
