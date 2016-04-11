@@ -2,98 +2,80 @@
 #define RUNGE_KUTTA_H
 
 #include<vector>
-#include"Particle_tools.hpp"
 
-namespace Runge_Kutta {
+class Runge_Kutta {
+public:
 
-float dT = 0.1;
+    // use only one instance
+    static Runge_Kutta& get_instance() {
+        static Runge_Kutta theInstance;
+        return theInstance;
+    }
 
-float fx = 0.1;
-float fy = 0.1;
+    Runge_Kutta() {init();}
 
+    Runge_Kutta(const float dT,
+                const float x0, const float y0, const float z0,
+                const float x1, const float y1, const float z1,
+                const float fx, const float fy,
+                const float randomness_z) :
+        _dT(dT), _x0(x0), _y0(y0), _z0(z0),
+        _x1(x1), _y1(y1), _z1(z1), _fx(fx), _fy(fy),
+        _randomness_z(randomness_z)
+        {init();}
 
-float m1x = 1.0 / particle_tools::xsize;
-float m1y = 1.0 / particle_tools::ysize;
-float m1z = 1.0 / particle_tools::zsize;
-
-//3D-world limits
-
-float x0 = -3.0*fx;
-float x1 = 3.0*fx;
-float y0 = -3.0*fy;
-float y1 = 3.0*fy;
-float z0 = -1;
-float z1 = 1;
-
-float diffX = x1-x0;
-float diffY = y1-y0;
-float diffZ = z1-z0;
-
-float dXm1 = diffX * m1x;
-float dYm1 = diffY * m1y;
-float dZm1 = diffZ * m1z;
-
-float randomness_z = 0.1;
-
-void f1(const float v0, const float v1, const float v2,
-        std::vector<float> & res)
-{
-    res.clear();
-    res.push_back(-v1-0.1*v0*(v0*v0+v1*v1));
-    res.push_back(v0-0.1*v1*(v0*v0+v1*v1));
-    res.push_back(0);
-}
-
-void runge_kutta(const int x, const int y, const int z,
+    void compute(const int x, const int y, const int z,
                  const float cx, const float cy,
                  std::vector<float> & res,
-                 const bool inv = false)
-{
-    res.clear();
+                 const bool inv = false) const;
 
-    float xp0 = x*(dXm1)+(x0+cx);
-    float xp1 = y*(dYm1)+(y0+cy);
-    float xp2 = z*(dZm1)+(z0);
+    // Convenient getters
+    float dXm1() {return _dXm1; }
+    float dYm1() {return _dYm1; }
+    float dZm1() {return _dZm1; }
+    float x0() {return _x0; }
+    float y0() {return _y0; }
+    float z0() {return _z0; }
+    float randomness_z() {return _randomness_z; }
 
-    std::vector<float> temp_1 (3), temp_2 (3), temp_3 (3), temp_4 (3);
+private:
+    void f1(const float v0, const float v1, const float v2,
+            std::vector<float> & res) const;
 
-    // using f1
+    void init();
 
-    f1(xp0,xp1,xp2, temp_1);
+private:
+    int _xsize, _ysize, _zsize;
 
-    float k10 = temp_1[0];
-    float k11 = temp_1[1];
-    float k12 = temp_1[2];
+    float _dT;
 
-    f1(xp0 + k10*0.5, xp1 + k11*0.5, xp2 + k12*0.5, temp_2);
+    float _fx;
+    float _fy;
 
-    float k20 = temp_2[0];
-    float k21 = temp_2[1];
-    float k22 = temp_2[2];
+    float _m1x;
+    float _m1y;
+    float _m1z;
 
-    f1(xp0 + k20*0.5, xp1 + k21*0.5, xp2 + k22*0.5, temp_3);
+    //3D-world limits
 
-    float k30 = temp_3[0];
-    float k31 = temp_3[1];
-    float k32 = temp_3[2];
+    float _x0;
+    float _x1;
+    float _y0;
+    float _y1;
+    float _z0;
+    float _z1;
 
-    f1(xp0+k30, xp1+k31, xp2+k32, temp_4);
+    float _diffX;
+    float _diffY;
+    float _diffZ;
 
-    float k40 = temp_4[0];
-    float k41 = temp_4[1];
-    float k42 = temp_4[2];
+    float _dXm1;
+    float _dYm1;
+    float _dZm1;
 
-    float u6 = 1.0/6.0;
+    float _randomness_z;
+};
 
-    // inverse
-    if(inv) dT *= -1;
-
-    res.push_back(xp0 + dT*(k10 + k20*2.0 + k30*2.0 + k40)*u6);
-    res.push_back(xp1 + dT*(k11 + k21*2.0 + k31*2.0 + k41)*u6);
-    res.push_back(xp2 + dT*(k12 + k22*2.0 + k32*2.0 + k42)*u6);
-}
-
-
-} // namespace
+//} // namespace
 
 #endif // RUNGE_KUTTA_H

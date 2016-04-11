@@ -2,6 +2,10 @@
 #define PARTICLE_H
 
 #include<vector>
+#include"Volumetric_texture.hpp"
+#include"Runge_Kutta.hpp"
+
+namespace porous {
 
 class Particle {
 
@@ -9,9 +13,12 @@ class Particle {
 
         /// Constructor
 
-        Particle(int id, int rand, bool alive, int max_size, int sep) :
+        Particle(int id, int rand, bool alive, int max_size, int sep,
+                 VolumetricTexture & occ,
+                 VolumetricTexture & owner) :
             _id(id), _randomness(rand), _alive(alive),
-            _max_size(max_size), _sep(sep)
+            _max_size(max_size), _sep(sep), _occ(occ), _owner(owner),
+            _rk(Runge_Kutta::get_instance())
         {
             init();
         }
@@ -44,10 +51,18 @@ class Particle {
 
         std::vector<std::vector<int>> _boundary;
 
+        /// Instances
+        Runge_Kutta & _rk;
+        ///
+        VolumetricTexture & _occ;
+        VolumetricTexture & _owner;
+
         /// Methods
 
         void init();
 
 };
+
+} // namespace porous
 
 #endif // PARTICLE_H

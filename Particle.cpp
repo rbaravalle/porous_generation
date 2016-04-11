@@ -1,11 +1,11 @@
 #include"Particle.hpp"
-#include"Particle_tools.hpp"
 #include"Runge_Kutta.hpp"
-#include"Generation_data.hpp"
 
 #include<random>
 
 using namespace std;
+
+namespace porous {
 
 void Particle::init()
 {
@@ -25,17 +25,17 @@ void Particle::init()
     // initial random position
     int x,y,z;
 
-    x = (int) (((double) rand() / (RAND_MAX)) * particle_tools::occ.xsize());
-    y = (int) (((double) rand() / (RAND_MAX)) * particle_tools::occ.ysize());
-    z = (int) (((double) rand() / (RAND_MAX)) * particle_tools::occ.zsize());
+    x = (int) (((double) rand() / (RAND_MAX)) * _occ.xsize());
+    y = (int) (((double) rand() / (RAND_MAX)) * _occ.ysize());
+    z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
 
 
-    particle_tools::occ(x,y,z) = 0;
+    _occ(x,y,z) = 0;
 
-    particle_tools::owner(x,y,z) = _id;
+    _owner(x,y,z) = _id;
 
     // mark boundary
-    particle_tools::owner.set_border((*this), x, y, z);
+    _owner.set_border(id(), sep(), x, y, z);
 
 }
 
@@ -50,11 +50,10 @@ void Particle::grow()
             int ny = _boundary[h][1];
             int nz = _boundary[h][2];
 
-            if(particle_tools::occ.in_texture(nx, ny, nz) &&
-                    !(particle_tools::occ.search_border((*this),
-                                                        nx, ny, nz))) {
-                particle_tools::occ(nx, ny, nz) = 0;
-                particle_tools::owner(nx, ny, nz) = _id;
+            if(_occ.in_texture(nx, ny, nz) &&
+               !(_occ.search_border(id(), sep(), nx, ny, nz))) {
+                _occ(nx, ny, nz) = 0;
+                _owner(nx, ny, nz) = _id;
 
                 add(nx, ny, nz);
                 _size++;
@@ -80,7 +79,7 @@ void Particle::add(int x, int y, int z)
 
     /// \todo Use center of mass instead of (0,0)
 
-    Runge_Kutta::runge_kutta(x, y, z, 0, 0, runge_k_res);
+    _rk.compute(x, y, z, 0, 0, runge_k_res);
 
     float xp0 = runge_k_res[0];
     float xp1 = runge_k_res[1];
@@ -99,9 +98,9 @@ void Particle::add(int x, int y, int z)
                     /// \todo center of mass
                     int cx = 0;
                     int cy = 0;
-                    float xt = (xp0 - (xh*(Runge_Kutta::dXm1) + (Runge_Kutta::x0 + cx)));
-                    float yt = (xp1 - (yh*(Runge_Kutta::dYm1) + (Runge_Kutta::y0 + cy)));
-                    float zt = (xp2 - (zh*(Runge_Kutta::dZm1) +  Runge_Kutta::z0));
+                    float xt = (xp0 - (xh*(_rk.dXm1()) + (_rk.x0() + cx)));
+                    float yt = (xp1 - (yh*(_rk.dYm1()) + (_rk.y0() + cy)));
+                    float zt = (xp2 - (zh*(_rk.dZm1()) +  _rk.z0()));
 
                     float dist = sqrt(xt*xt + yt*yt + zt*zt);
 
@@ -123,13 +122,13 @@ void Particle::add(int x, int y, int z)
         }
     }
 
-    particle_tools::occ.set_border((*this), x, y, z);
+    _occ.set_border(id(), sep(), x, y, z);
 
     vector<int> new_voxel {best_x, best_y, best_z};
     _boundary.push_back(new_voxel);
 
     // randomly add voxels in the z-direction
-    if(rand() / RAND_MAX > (1.0 - Runge_Kutta::randomness_z)) {
+    if(rand() / RAND_MAX > (1.0 - _rk.randomness_z())) {
         int temp = -1;
         if(rand() / RAND_MAX > 0.5)
             temp = 1;
@@ -138,3 +137,5 @@ void Particle::add(int x, int y, int z)
         _boundary.push_back(new_voxel);
     }
 }
+
+} // namespace
