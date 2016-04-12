@@ -13,11 +13,6 @@ void Particle::init()
 {
     vector<int> init_boundary;
 
-    init_boundary.push_back(-1);
-    init_boundary.push_back(-1);
-    init_boundary.push_back(-1);
-
-    _boundary.push_back(init_boundary);
 
     _randomness = ((double) rand() / (RAND_MAX));
 
@@ -59,7 +54,7 @@ void Particle::grow()
             int nz = _boundary[h][2];
 
             if(_occ.in_texture(nx, ny, nz) &&
-               !(_occ.search_border(id(), sep(), nx, ny, nz))) {
+               !(_owner.search_border(id(), sep(), nx, ny, nz))) {
                 _occ(nx, ny, nz) = 0;
                 _owner(nx, ny, nz) = _id;
 
@@ -84,10 +79,7 @@ void Particle::grow()
 
 void Particle::add(int x, int y, int z)
 {
-
-    cout << "Particle::add" << endl;
-    cout << "Previous boundary size: " << _boundary.size() << endl;
-
+    
     vector<float> runge_k_res;
 
     /// \todo Use center of mass instead of (0,0)
@@ -137,7 +129,7 @@ void Particle::add(int x, int y, int z)
 
     _occ(x,y,z) = 0;
     _size++;
-    _occ.set_border(id(), sep(), x, y, z);
+    _owner.set_border(id(), sep(), x, y, z);
 
     vector<int> new_voxel {best_x, best_y, best_z};
     _boundary.push_back(new_voxel);
@@ -152,7 +144,6 @@ void Particle::add(int x, int y, int z)
         _boundary.push_back(new_voxel);
     }
 
-    cout << "New Boundary size: " << _boundary.size() << endl;
 }
 
 } // namespace

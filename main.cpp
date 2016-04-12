@@ -6,11 +6,12 @@ using namespace std;
 
 int main()
 {
-    int xsize = 255;
-    int ysize = 255;
-    int zsize = 255;
+    int xsize = 30;
+    int ysize = 30;
+    int zsize = 2;
     int max_size = 10000;
     float randomness = 0.5;
+    int num_particles = 40;
 
     VolumetricTexture occ(xsize, ysize, zsize, 1);
     VolumetricTexture owner(xsize, ysize, zsize, -1);
@@ -20,16 +21,16 @@ int main()
                   randomness,
                   occ, owner);
 
-    cout << "Creating " << 10 << " particles..." << endl;
+    cout << "Creating " << num_particles << " particles..." << endl;
 
-    porous.init_particles(4);
+    porous.init_particles(num_particles);
 
     cout << "Amount of particles created: " << porous.particles().size() << endl;
 
     cout << "/////////////////// ALGORITHM..." << endl;
     cout << endl << endl;
 
-    int num_it = 5;
+    int num_it = 1000;
 
     vector<porous::Particle> & particles = porous.particles();
     for(int i = 0; i < num_it; i++) {
