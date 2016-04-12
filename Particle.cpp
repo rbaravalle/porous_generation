@@ -47,6 +47,7 @@ void Particle::grow()
             int nz = _boundary[h][2];
 
             if(_occ.in_texture(nx, ny, nz) &&
+               _occ(nx, ny, nz) == 1 &&
                !(_owner.search_border(id(), sep(), nx, ny, nz))) {
                 _owner(nx, ny, nz) = _id;
 
@@ -121,14 +122,11 @@ void Particle::add(int x, int y, int z)
         }
     }
 
-    cout << "will mark " << x << ", " << y << ", " << z << endl;
     assert(_occ(x,y,z) == 1);
-    cout << "marked " << x << ", " << y << ", " << z << endl;
     _occ(x,y,z) = 0;
     _size++;
     _owner.set_border(id(), sep(), x, y, z);
 
-    cout << "New voxel boundary: " << best_x << ", " << best_y << ", " << best_z << endl;
     vector<int> new_voxel {best_x, best_y, best_z};
     if(_occ.in_texture(best_x, best_y, best_z) &&
        _occ(best_x, best_y, best_z) == 1)

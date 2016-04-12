@@ -11,7 +11,7 @@ int main()
     int zsize = 1;
     int max_size = xsize * ysize * zsize;
     float randomness = 0.5;
-    int num_particles = 10;
+    int num_particles = 100;
 
     VolumetricTexture occ(xsize, ysize, zsize, 1);
     VolumetricTexture owner(xsize, ysize, zsize, -1);
@@ -30,7 +30,7 @@ int main()
     cout << "/////////////////// ALGORITHM..." << endl;
     cout << endl << endl;
 
-    int num_it = 3;
+    int num_it = 500;
 
     vector<porous::Particle> & particles = porous.particles();
     for(int i = 0; i < num_it; i++) {
