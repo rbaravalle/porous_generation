@@ -65,10 +65,6 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
 
 void Runge_Kutta::init() {
 
-    _m1x = 1.0 / _xsize;
-    _m1y = 1.0 / _ysize;
-    _m1z = 1.0 / _zsize;
-
     //3D-world limits
 
     if(_fx) {
@@ -88,6 +84,14 @@ void Runge_Kutta::init() {
         _z1 = 1;
 
         _dT = 0.1;
+
+        _xsize = 30;
+        _ysize = 30;
+        _zsize = 1;
+
+        _m1x = 1.0 / _xsize;
+        _m1y = 1.0 / _ysize;
+        _m1z = 1.0 / _zsize;
     }
 
     _diffX = _x1-_x0;
@@ -97,4 +101,5 @@ void Runge_Kutta::init() {
     _dXm1 = _diffX * _m1x;
     _dYm1 = _diffY * _m1y;
     _dZm1 = _diffZ * _m1z;
+
 }

@@ -11,13 +11,9 @@ namespace porous {
 
 void Particle::init()
 {
-    vector<int> init_boundary;
-
-
     _randomness = ((double) rand() / (RAND_MAX));
 
     _size = 0;
-
 
     // initial random position
     int x,y,z;
@@ -28,9 +24,6 @@ void Particle::init()
 
     cout << "Initial position: " << x << ", " << y << ", "
          << z << endl;
-
-
-    _occ(x,y,z) = 0;
 
     _owner(x,y,z) = _id;
 
@@ -55,7 +48,6 @@ void Particle::grow()
 
             if(_occ.in_texture(nx, ny, nz) &&
                !(_owner.search_border(id(), sep(), nx, ny, nz))) {
-                _occ(nx, ny, nz) = 0;
                 _owner(nx, ny, nz) = _id;
 
                 add(nx, ny, nz);
@@ -99,7 +91,9 @@ void Particle::add(int x, int y, int z)
     for(int xh = x - 1; xh <= x + 1; xh++) {
         for(int yh = y - 1; yh <= y + 1; yh++) {
             for(int zh = z - 1; zh <= z + 1; zh++) {
-                if(! (xh == x && yh == y && zh == z) ) {
+                if(! (xh == x && yh == y && zh == z) &&
+                      _occ.in_texture(xh, yh, zh) &&
+                      _occ(xh, yh, zh) == 1) {
                     /// \todo center of mass
                     int cx = 0;
                     int cy = 0;
@@ -127,12 +121,18 @@ void Particle::add(int x, int y, int z)
         }
     }
 
+    cout << "will mark " << x << ", " << y << ", " << z << endl;
+    assert(_occ(x,y,z) == 1);
+    cout << "marked " << x << ", " << y << ", " << z << endl;
     _occ(x,y,z) = 0;
     _size++;
     _owner.set_border(id(), sep(), x, y, z);
 
+    cout << "New voxel boundary: " << best_x << ", " << best_y << ", " << best_z << endl;
     vector<int> new_voxel {best_x, best_y, best_z};
-    _boundary.push_back(new_voxel);
+    if(_occ.in_texture(best_x, best_y, best_z) &&
+       _occ(best_x, best_y, best_z) == 1)
+            _boundary.push_back(new_voxel);
 
     // randomly add voxels in the z-direction
     if(rand() / RAND_MAX > (1.0 - _rk.randomness_z())) {
@@ -141,7 +141,9 @@ void Particle::add(int x, int y, int z)
             temp = 1;
 
         vector<int> new_voxel {x, y, z + temp};
-        _boundary.push_back(new_voxel);
+        if(_occ.in_texture(x, y, z + temp) &&
+           _occ(x, y, z + temp) == 1)
+           _boundary.push_back(new_voxel);
     }
 
 }
