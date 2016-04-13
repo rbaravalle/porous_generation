@@ -15,7 +15,7 @@ void output(const VolumetricTexture& occ,
     //declare a temporary color variable
     Colour c;
 
-    int z = 0;//zsize/2;
+    int z = 0;//occ.zsize()/2;
     //Loop through image and set all pixels to red
     for(int x=0; x< occ.xsize(); x++)
         for(int y=0; y< occ.ysize(); y++)
@@ -38,15 +38,17 @@ int main()
     // init variables
     int xsize = 128;
     int ysize = 128;
-    int zsize = 40;
+    int zsize = 128;
     int max_size = xsize * ysize * zsize;
-    float randomness = 0.01;
-    int num_particles = 10000;
+    float randomness = 0.2;
+    float randomness_z = 0.1;
+    int num_particles = 20000;
     int num_it = 1000;
 
     porous::Porous porous(xsize, ysize, zsize,
                   max_size,
                   randomness,
+                  randomness_z,
                   num_particles,
                   num_it);
 

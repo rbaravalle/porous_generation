@@ -9,11 +9,9 @@ public:
     Runge_Kutta() {}
 
     Runge_Kutta(const float dT,
-                const int xsize, const int ysize, const int zsize,
-                const float randomness_z) :
+                const int xsize, const int ysize, const int zsize) :
         _dT(dT),
-        _xsize(xsize), _ysize(ysize), _zsize(zsize),
-        _randomness_z(randomness_z)
+        _xsize(xsize), _ysize(ysize), _zsize(zsize)
         {init();}
 
     void compute(const int x, const int y, const int z,
@@ -27,7 +25,6 @@ public:
     const float x0()  const {return _x0; }
     const float y0()  const {return _y0; }
     const float z0()  const {return _z0; }
-    const float randomness_z()  const {return _randomness_z; }
 
     const float cx()  const {return _cx; }
     const float cy()  const {return _cy; }
@@ -67,8 +64,6 @@ private:
     float _dXm1;
     float _dYm1;
     float _dZm1;
-
-    float _randomness_z;
 };
 
 #endif // RUNGE_KUTTA_H

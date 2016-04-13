@@ -11,8 +11,6 @@ namespace porous {
 
 void Particle::init()
 {
-    _randomness = ((double) rand() / (RAND_MAX));
-
     _size = 0;
 
     // initial random position
@@ -90,6 +88,7 @@ bool Particle::grow()
 
 void Particle::add(int x, int y, int z)
 {
+    srand(time(NULL));
     
     vector<float> runge_k_res;
 
@@ -147,7 +146,7 @@ void Particle::add(int x, int y, int z)
             _boundary.push_back(new_voxel);
 
     // randomly add voxels in the z-direction
-    if(rand() / RAND_MAX > (1.0 - _rk.randomness_z())) {
+    if(rand() / RAND_MAX > (1.0 - _randomness_z)) {
         int temp = -1;
         if(rand() / RAND_MAX > 0.5)
             temp = 1;

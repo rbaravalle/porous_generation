@@ -2,15 +2,18 @@
 
 #include<iostream>
 #include<assert.h>
+#include<math.h>
 
 using namespace std;
 
-void Runge_Kutta::f1(const float v0, const float v1, const float v2,
+void Runge_Kutta::f1(const float v0,
+                     const float v1,
+                     const float v2,
                      std::vector<float> & res) const
 {
     res.clear();
-    res.push_back(-v1-0.1*v0*(v0*v0+v1*v1));
-    res.push_back(v0-0.1*v1*(v0*v0+v1*v1));
+    res.push_back(v1);
+    res.push_back(-sin(v0));
     res.push_back(0);
 }
 
@@ -61,6 +64,14 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
     res.push_back(xp0 + dT*(k10 + k20*2.0 + k30*2.0 + k40)*u6);
     res.push_back(xp1 + dT*(k11 + k21*2.0 + k31*2.0 + k41)*u6);
     res.push_back(xp2 + dT*(k12 + k22*2.0 + k32*2.0 + k42)*u6);
+
+    /*cout << "Resultado: "
+         << xp0 << ", "
+         << k10 << ", "
+         << k20 << ", "
+         << k30 << ", "
+         << k40 << ", "
+         << endl;*/
 }
 
 void Runge_Kutta::init() {
@@ -86,7 +97,6 @@ void Runge_Kutta::init() {
     _diffX = _x1-_x0;
     _diffY = _y1-_y0;
     _diffZ = _z1-_z0;
-    cout << _x0 << ", " << _y0 << ", "  << _z0 << endl;
 
     _dXm1 = _diffX * _m1x;
     _dYm1 = _diffY * _m1y;

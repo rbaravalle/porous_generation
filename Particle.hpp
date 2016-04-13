@@ -13,11 +13,16 @@ class Particle {
 
         /// Constructor
 
-        Particle(int id, int rand, bool alive, int max_size, int sep,
+        Particle(int id,
+                 float randomness,
+                 float randomness_z,
+                 bool alive, int max_size, int sep,
                  const Runge_Kutta& rk,
                  VolumetricTexture & occ,
                  VolumetricTexture & owner) :
-            _id(id), _randomness(rand), _alive(alive),
+            _id(id),
+            _randomness(randomness), _randomness_z(randomness_z),
+            _alive(alive),
             _max_size(max_size), _sep(sep), _occ(occ), _owner(owner),
             _rk(rk)
         {
@@ -40,6 +45,7 @@ class Particle {
         int _id;
         int _size;
         float _randomness;
+        float _randomness_z;
         bool _alive;
         int _max_size;
         int _sep;
