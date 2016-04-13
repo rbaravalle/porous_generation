@@ -5,6 +5,8 @@ namespace porous {
 
 void Porous::init_particles(const int cant_particles)
 {
+    cout << "Creating " << cant_particles << " particles..." << endl;
+
     _particles.clear();
 
     for(int i = 0; i < cant_particles; i++) {
@@ -17,9 +19,13 @@ void Porous::init_particles(const int cant_particles)
         _particles.push_back(p);
 
     }
+    cout << "Amount of particles created: " << _particles.size() << endl;
+
 }
 
 void Porous::algorithm() {
+    cout << "/////////////////// ALGORITHM..." << endl;
+    cout << endl << endl;
 
     for(int i = 0; i < _num_it; i++) {
 
