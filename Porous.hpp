@@ -16,16 +16,16 @@ public:
     Porous(const int xsize, const int ysize, const int zsize,
            const int max_size,
            const float randomness,
+           const int cant_particles,
            const int num_it) :
         _xsize(xsize), _ysize(ysize), _zsize(zsize),
         _max_size(max_size),
         _num_it(num_it),
+        _cant_particles(cant_particles),
         _randomness(randomness)
     { _occ.resize(xsize, ysize, zsize, 1);
       _owner.resize(xsize, ysize, zsize, -1);
       _rk = Runge_Kutta(0.1, xsize, ysize, zsize, 0.5);}
-
-    void init_particles(const int cant_particles);
 
     void algorithm();
 
@@ -45,7 +45,12 @@ private:
     int _xsize, _ysize, _zsize;
     int _max_size;
     float _randomness;
+    int _cant_particles;
     int _num_it;
+
+private:
+    void init_particles();
+
 };
 
 }

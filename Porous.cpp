@@ -3,13 +3,13 @@
 
 namespace porous {
 
-void Porous::init_particles(const int cant_particles)
+void Porous::init_particles()
 {
-    cout << "Creating " << cant_particles << " particles..." << endl;
+    cout << "Creating " << _cant_particles << " particles..." << endl;
 
     _particles.clear();
 
-    for(int i = 0; i < cant_particles; i++) {
+    for(int i = 0; i < _cant_particles; i++) {
 
         porous::Particle p(i, _randomness, true, _max_size, 1,
                            _rk, _occ, _owner);
@@ -24,6 +24,8 @@ void Porous::init_particles(const int cant_particles)
 }
 
 void Porous::algorithm() {
+    init_particles();
+
     cout << "/////////////////// ALGORITHM..." << endl;
     cout << endl << endl;
 

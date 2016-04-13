@@ -5,10 +5,11 @@
 
 using namespace std;
 
-void output(const VolumetricTexture& occ)
+void output(const VolumetricTexture& occ,
+            const string& filename)
 {
 
-    cout << "Outputting image file" << endl;
+    cout << "Outputting image file: " << filename << endl;
     TGAImage img(occ.xsize(), occ.ysize());
 
     //declare a temporary color variable
@@ -27,7 +28,6 @@ void output(const VolumetricTexture& occ)
         }
 
     //write the image to disk
-    string filename = "/home/rodrigo/porous.tga";
     img.WriteImage(filename);
 
 
@@ -44,23 +44,20 @@ int main()
     int num_particles = 10000;
     int num_it = 1000;
 
-
     porous::Porous porous(xsize, ysize, zsize,
                   max_size,
                   randomness,
+                  num_particles,
                   num_it);
-
-
-    porous.init_particles(num_particles);
 
     // compute
     porous.algorithm();
 
     // output results
-    output(porous.occ());
+    output(porous.occ(),
+           "/home/rodrigo/porous.tga");
 
     cout << "Success!" << endl;
-
 
     return 0;
 }
