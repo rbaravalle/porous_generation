@@ -1,6 +1,7 @@
 #include"Runge_Kutta.hpp"
 
 #include<iostream>
+#include<assert.h>
 
 using namespace std;
 
@@ -14,14 +15,13 @@ void Runge_Kutta::f1(const float v0, const float v1, const float v2,
 }
 
 void Runge_Kutta::compute(const int x, const int y, const int z,
-         const float cx, const float cy,
          std::vector<float> & res,
          const bool inv) const
 {
     res.clear();
 
-    float xp0 = x*(_dXm1)+(_x0+cx);
-    float xp1 = y*(_dYm1)+(_y0+cy);
+    float xp0 = x*(_dXm1)+(_x0+_cx);
+    float xp1 = y*(_dYm1)+(_y0+_cy);
     float xp2 = z*(_dZm1)+(_z0);
 
     std::vector<float> temp_1 (3), temp_2 (3), temp_3 (3), temp_4 (3);
@@ -65,38 +65,28 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
 
 void Runge_Kutta::init() {
 
+    assert(_xsize > 0);
+    _m1x = 1.0 / _xsize;
+    _m1y = 1.0 / _ysize;
+    _m1z = 1.0 / _zsize;
+    _cx = _xsize / 2.0;
+    _cy = _ysize / 2.0;
+
+
+    _fx = 1.0;
+    _fy = 1.0;
     //3D-world limits
-
-    if(_fx) {
-        _x0 = -3.0*_fx;
-        _x1 = 3.0*_fx;
-        _y0 = -3.0*_fy;
-        _y1 = 3.0*_fy;
-        _z0 = -1;
-        _z1 = 1;
-    }
-    else {
-        _x0 = -3.0;
-        _x1 = 3.0;
-        _y0 = -3.0;
-        _y1 = 3.0;
-        _z0 = -1;
-        _z1 = 1;
-
-        _dT = 0.1;
-
-        _xsize = 30;
-        _ysize = 30;
-        _zsize = 1;
-
-        _m1x = 1.0 / _xsize;
-        _m1y = 1.0 / _ysize;
-        _m1z = 1.0 / _zsize;
-    }
+    _x0 = -3.0*_fx;
+    _x1 = 3.0*_fx;
+    _y0 = -3.0*_fy;
+    _y1 = 3.0*_fy;
+    _z0 = -1;
+    _z1 = 1;
 
     _diffX = _x1-_x0;
     _diffY = _y1-_y0;
     _diffZ = _z1-_z0;
+    cout << _x0 << ", " << _y0 << ", "  << _z0 << endl;
 
     _dXm1 = _diffX * _m1x;
     _dYm1 = _diffY * _m1y;

@@ -13,32 +13,36 @@ namespace porous {
 class Porous {
 public:
 
-    Porous(int xsize, int ysize, int zsize,
-           int max_size,
-           float randomness,
-           const VolumetricTexture& occ,
-           const VolumetricTexture& owner) :
+    Porous(const int xsize, const int ysize, const int zsize,
+           const int max_size,
+           const float randomness,
+           const int num_it,
+           VolumetricTexture& occ,
+           VolumetricTexture& owner) :
         _xsize(xsize), _ysize(ysize), _zsize(zsize),
         _max_size(max_size),
+        _num_it(num_it),
         _randomness(randomness),
-        _rk(Runge_Kutta::get_instance()),
         _occ(occ), _owner(owner)
-    {}
+    { _rk = Runge_Kutta(0.1, xsize, ysize, zsize, 0.5);}
 
     void init_particles(const int cant_particles);
+
+    void algorithm();
 
     vector<porous::Particle>& particles() { return _particles;}
 
 
 private:
     vector<porous::Particle> _particles;
-    VolumetricTexture _occ;
-    VolumetricTexture _owner;
-    Runge_Kutta & _rk;
+    VolumetricTexture & _occ;
+    VolumetricTexture & _owner;
+    Runge_Kutta _rk;
 
     int _xsize, _ysize, _zsize;
     int _max_size;
     float _randomness;
+    int _num_it;
 };
 
 }

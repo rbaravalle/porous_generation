@@ -6,37 +6,31 @@
 class Runge_Kutta {
 public:
 
-    // use only one instance
-    static Runge_Kutta& get_instance() {
-        static Runge_Kutta theInstance;
-        return theInstance;
-    }
-
-    Runge_Kutta() {init();}
+    Runge_Kutta() {}
 
     Runge_Kutta(const float dT,
-                const float x0, const float y0, const float z0,
-                const float x1, const float y1, const float z1,
-                const float fx, const float fy,
+                const int xsize, const int ysize, const int zsize,
                 const float randomness_z) :
-        _dT(dT), _x0(x0), _y0(y0), _z0(z0),
-        _x1(x1), _y1(y1), _z1(z1), _fx(fx), _fy(fy),
+        _dT(dT),
+        _xsize(xsize), _ysize(ysize), _zsize(zsize),
         _randomness_z(randomness_z)
         {init();}
 
     void compute(const int x, const int y, const int z,
-                 const float cx, const float cy,
                  std::vector<float> & res,
                  const bool inv = false) const;
 
     // Convenient getters
-    float dXm1() {return _dXm1; }
-    float dYm1() {return _dYm1; }
-    float dZm1() {return _dZm1; }
-    float x0() {return _x0; }
-    float y0() {return _y0; }
-    float z0() {return _z0; }
-    float randomness_z() {return _randomness_z; }
+    const float dXm1()  const {return _dXm1; }
+    const float dYm1()  const {return _dYm1; }
+    const float dZm1()  const {return _dZm1; }
+    const float x0()  const {return _x0; }
+    const float y0()  const {return _y0; }
+    const float z0()  const {return _z0; }
+    const float randomness_z()  const {return _randomness_z; }
+
+    const float cx()  const {return _cx; }
+    const float cy()  const {return _cy; }
 
 private:
     void f1(const float v0, const float v1, const float v2,
@@ -46,6 +40,7 @@ private:
 
 private:
     int _xsize, _ysize, _zsize;
+    int _cx, _cy;
 
     float _dT;
 

@@ -14,11 +14,12 @@ class Particle {
         /// Constructor
 
         Particle(int id, int rand, bool alive, int max_size, int sep,
+                 const Runge_Kutta& rk,
                  VolumetricTexture & occ,
                  VolumetricTexture & owner) :
             _id(id), _randomness(rand), _alive(alive),
             _max_size(max_size), _sep(sep), _occ(occ), _owner(owner),
-            _rk(Runge_Kutta::get_instance())
+            _rk(rk)
         {
             init();
         }
@@ -27,7 +28,7 @@ class Particle {
 
         ~Particle() {}
 
-        ///  Try yo grow Particle one step in the simulation
+        ///  Try yo grow the particle one step in the simulation
 
         bool grow();
 
@@ -46,7 +47,7 @@ class Particle {
         std::vector<std::vector<int>> _boundary;
 
         /// Instances
-        Runge_Kutta & _rk;
+        const Runge_Kutta & _rk;
         VolumetricTexture & _occ;
         VolumetricTexture & _owner;
 

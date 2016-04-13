@@ -30,8 +30,8 @@ void Particle::init()
         count++;
     }
 
-    cout << "Initial position: " << x << ", " << y << ", "
-         << z << endl;
+    //cout << "Initial position: " << x << ", " << y << ", "
+    //     << z << endl;
 
     if(_occ(x,y,z) == 0) {
         cout << "Cannot create particle: no free position" << endl;
@@ -93,9 +93,7 @@ void Particle::add(int x, int y, int z)
     
     vector<float> runge_k_res;
 
-    /// \todo Use center of mass instead of (0,0)
-
-    _rk.compute(x, y, z, 0, 0, runge_k_res);
+    _rk.compute(x, y, z, runge_k_res);
 
     float xp0 = runge_k_res[0];
     float xp1 = runge_k_res[1];
@@ -114,10 +112,8 @@ void Particle::add(int x, int y, int z)
                       _occ.in_texture(xh, yh, zh) &&
                       _occ(xh, yh, zh) == 1) {
                     /// \todo center of mass
-                    int cx = 0;
-                    int cy = 0;
-                    float xt = (xp0 - (xh*(_rk.dXm1()) + (_rk.x0() + cx)));
-                    float yt = (xp1 - (yh*(_rk.dYm1()) + (_rk.y0() + cy)));
+                    float xt = (xp0 - (xh*(_rk.dXm1()) + (_rk.x0() + _rk.cx())));
+                    float yt = (xp1 - (yh*(_rk.dYm1()) + (_rk.y0() + _rk.cy())));
                     float zt = (xp2 - (zh*(_rk.dZm1()) +  _rk.z0()));
 
                     float dist = sqrt(xt*xt + yt*yt + zt*zt);

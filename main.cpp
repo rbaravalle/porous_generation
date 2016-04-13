@@ -1,17 +1,19 @@
 #include<iostream>
 
 #include"Porous.hpp"
+#include"Image.h"
 
 using namespace std;
 
 int main()
 {
-    int xsize = 64;
-    int ysize = 64;
-    int zsize = 64;
+    int xsize = 128;
+    int ysize = 128;
+    int zsize = 40;
     int max_size = xsize * ysize * zsize;
-    float randomness = 0.5;
-    int num_particles = 5000;
+    float randomness = 0.01;
+    int num_particles = 10000;
+    int num_it = 1000;
 
     VolumetricTexture occ(xsize, ysize, zsize, 1);
     VolumetricTexture owner(xsize, ysize, zsize, -1);
@@ -19,6 +21,7 @@ int main()
     porous::Porous porous(xsize, ysize, zsize,
                   max_size,
                   randomness,
+                  num_it,
                   occ, owner);
 
     cout << "Creating " << num_particles << " particles..." << endl;
@@ -30,32 +33,32 @@ int main()
     cout << "/////////////////// ALGORITHM..." << endl;
     cout << endl << endl;
 
-    int num_it = 1000;
+    porous.algorithm();
 
-    vector<porous::Particle> & particles = porous.particles();
-    for(int i = 0; i < num_it; i++) {
-        cout << "////// ITERATION" << endl;
-        cout << endl << endl;
+    cout << "Outputting image file" << endl;
+    TGAImage img(xsize, ysize);
 
-        bool succeeded = false;
-        int id;
+    //declare a temporary color variable
+    Colour c;
 
-        for(int p = 0; p < particles.size(); p++) {
-            bool grow = particles[p].grow();
-            if(grow) {
-                id = p;
-                succeeded = true;
-            }
-        }
-        if(!succeeded) {
-            cout << "After " << i << " iterations no particle can progress, finishing..." << endl;
-            break;
-        }
-        else {
-            cout << "Particle " << id << " grew" << endl;
+    int z = 0;//zsize/2;
+    //Loop through image and set all pixels to red
+    for(int x=0; x< xsize; x++)
+        for(int y=0; y< ysize; y++)
+        {
+            c.r = 255*occ(x, y, z);
+            c.g = 255*occ(x, y, z);
+            c.b = 255*occ(x, y, z);
+            c.a = 255;
+            img.setPixel(c,x,y);
         }
 
-    }
+    //write the image to disk
+    string filename = "/home/rodrigo/porous.tga";
+    img.WriteImage(filename);
+
+
+
     cout << "Success!" << endl;
 
 
