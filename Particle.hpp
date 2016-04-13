@@ -27,15 +27,9 @@ class Particle {
 
         ~Particle() {}
 
+        ///  Try yo grow Particle one step in the simulation
 
-
-        /// Try to add (x,y,z) to the occupied set of the particle
-
-        void add(int x, int y, int z);
-
-        /// Grow Particle one step in the simulation
-
-        void grow();
+        bool grow();
 
         /// Getters
         const int& id() const {return _id;}
@@ -53,13 +47,16 @@ class Particle {
 
         /// Instances
         Runge_Kutta & _rk;
-        ///
         VolumetricTexture & _occ;
         VolumetricTexture & _owner;
 
         /// Methods
 
         void init();
+
+        /// Add (x,y,z) to the occupied set of the particle
+
+        void add(int x, int y, int z);
 
 };
 

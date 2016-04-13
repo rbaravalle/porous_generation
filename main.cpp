@@ -6,12 +6,12 @@ using namespace std;
 
 int main()
 {
-    int xsize = 30;
-    int ysize = 30;
-    int zsize = 1;
+    int xsize = 64;
+    int ysize = 64;
+    int zsize = 64;
     int max_size = xsize * ysize * zsize;
     float randomness = 0.5;
-    int num_particles = 100;
+    int num_particles = 5000;
 
     VolumetricTexture occ(xsize, ysize, zsize, 1);
     VolumetricTexture owner(xsize, ysize, zsize, -1);
@@ -30,15 +30,29 @@ int main()
     cout << "/////////////////// ALGORITHM..." << endl;
     cout << endl << endl;
 
-    int num_it = 500;
+    int num_it = 1000;
 
     vector<porous::Particle> & particles = porous.particles();
     for(int i = 0; i < num_it; i++) {
         cout << "////// ITERATION" << endl;
         cout << endl << endl;
 
+        bool succeeded = false;
+        int id;
+
         for(int p = 0; p < particles.size(); p++) {
-            particles[p].grow();
+            bool grow = particles[p].grow();
+            if(grow) {
+                id = p;
+                succeeded = true;
+            }
+        }
+        if(!succeeded) {
+            cout << "After " << i << " iterations no particle can progress, finishing..." << endl;
+            break;
+        }
+        else {
+            cout << "Particle " << id << " grew" << endl;
         }
 
     }

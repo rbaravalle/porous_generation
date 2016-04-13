@@ -22,8 +22,22 @@ void Particle::init()
     y = (int) (((double) rand() / (RAND_MAX)) * _occ.ysize());
     z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
 
+    int count = 0;
+    while(_occ(x,y,z) == 0 && count < 20) {
+        x = (int) (((double) rand() / (RAND_MAX)) * _occ.xsize());
+        y = (int) (((double) rand() / (RAND_MAX)) * _occ.ysize());
+        z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
+        count++;
+    }
+
     cout << "Initial position: " << x << ", " << y << ", "
          << z << endl;
+
+    if(_occ(x,y,z) == 0) {
+        cout << "Cannot create particle: no free position" << endl;
+        _alive = false;
+        return;
+    }
 
     _owner(x,y,z) = _id;
 
@@ -34,9 +48,10 @@ void Particle::init()
 
 }
 
-void Particle::grow()
+bool Particle::grow()
 {
-    cout << "Growing particle.." << endl;
+    bool succeeded = false;
+
     for(int r = 0; r < 2; r++) {
         int len_boundary = _boundary.size();
 
@@ -52,6 +67,7 @@ void Particle::grow()
                 _owner(nx, ny, nz) = _id;
 
                 add(nx, ny, nz);
+                succeeded = true;
 
                 // found!
                 break;
@@ -66,8 +82,10 @@ void Particle::grow()
 
     if(_size > _max_size) _alive = false;
 
-    cout << "Size of particle " << _id << " after growing: "
-         << _size << endl;
+    //cout << "Size of particle " << _id << " after growing: "
+    //     << _size << endl;
+
+    return succeeded;
 }
 
 void Particle::add(int x, int y, int z)
