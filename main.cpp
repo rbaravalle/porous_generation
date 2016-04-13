@@ -44,14 +44,11 @@ int main()
     int num_particles = 10000;
     int num_it = 1000;
 
-    VolumetricTexture occ(xsize, ysize, zsize, 1);
-    VolumetricTexture owner(xsize, ysize, zsize, -1);
 
     porous::Porous porous(xsize, ysize, zsize,
                   max_size,
                   randomness,
-                  num_it,
-                  occ, owner);
+                  num_it);
 
 
     porous.init_particles(num_particles);
@@ -60,7 +57,7 @@ int main()
     porous.algorithm();
 
     // output results
-    output(occ);
+    output(porous.occ());
 
     cout << "Success!" << endl;
 

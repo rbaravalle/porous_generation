@@ -14,6 +14,14 @@ class VolumetricTexture {
             _xsize(xsize), _ysize(ysize), _zsize(zsize), _init_val(init_val)
         {_data.resize(xsize*ysize*zsize, init_val);}
 
+        void resize(const int xsize, const int ysize, const int zsize, const int init_val)
+        {
+            _xsize = xsize;
+            _ysize = ysize;
+            _zsize = zsize;
+            _data.resize(xsize*ysize*zsize, init_val);
+        }
+
         /// Overloaded access read
         const int& operator() ( const int i, const int j, const int k) const  {
             int index = i + j * _xsize + k * (_xsize*_ysize);
