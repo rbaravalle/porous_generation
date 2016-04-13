@@ -28,11 +28,7 @@ void Particle::init()
         count++;
     }
 
-    //cout << "Initial position: " << x << ", " << y << ", "
-    //     << z << endl;
-
     if(_occ(x,y,z) == 0) {
-        cout << "Cannot create particle: no free position" << endl;
         _alive = false;
         return;
     }

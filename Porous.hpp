@@ -17,12 +17,12 @@ public:
            const int max_size,
            const float randomness,
            const float randomness_z,
-           const int cant_particles,
-           const int num_it) :
+           const int max_particles,
+           const int max_it) :
         _xsize(xsize), _ysize(ysize), _zsize(zsize),
         _max_size(max_size),
-        _num_it(num_it),
-        _cant_particles(cant_particles),
+        _max_it(max_it),
+        _max_particles(max_particles),
         _randomness(randomness),
         _randomness_z(randomness_z)
     { _occ.resize(xsize, ysize, zsize, 1);
@@ -49,8 +49,8 @@ private:
     int _max_size;
     float _randomness;
     float _randomness_z;
-    int _cant_particles;
-    int _num_it;
+    int _max_particles;
+    int _max_it;
 
 private:
     void init_particles();
