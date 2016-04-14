@@ -50,7 +50,7 @@ int main()
     int xsize = 256;
     int ysize = 256;
     int zsize = 10;
-    float randomness = 0.08;
+    float randomness = 0.01;
     float randomness_z = 0.0;
     int max_particles = 20000;
     int max_it = 1000;

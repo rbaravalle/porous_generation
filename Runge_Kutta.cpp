@@ -13,9 +13,9 @@ void Runge_Kutta::f1(const float v0,
                      float & r2,
                      float & r3) const
 {
-    r1 = v1;
-    r2 = -sin(v0);
-    r3 = 0;
+    r1 = 5.0;//v1;
+    r2 = 0.0;//-sin(v0);
+    r3 = 0.0;
 }
 
 void Runge_Kutta::compute(const int x, const int y, const int z,
@@ -24,9 +24,9 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
 {
     res.clear();
 
-    float xp0 = x*(_xsize_inv)+(_x0+_cx);
-    float xp1 = y*(_ysize_inv)+(_y0+_cy);
-    float xp2 = z*(_zsize_inv)+(_z0);
+    float xp0 = x*(_diffX_px)+(_x0+_cx);
+    float xp1 = y*(_diffY_px)+(_y0+_cy);
+    float xp2 = z*(_diffZ_px)+(_z0);
 
 
     float k10, k11, k12, k20, k21, k22, k30, k31, k32,
@@ -50,14 +50,6 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
     res[0] = xp0 + dT*(k10 + k20*2.0 + k30*2.0 + k40)*u6;
     res[1] = xp1 + dT*(k11 + k21*2.0 + k31*2.0 + k41)*u6;
     res[2] = xp2 + dT*(k12 + k22*2.0 + k32*2.0 + k42)*u6;
-
-    /*cout << "Resultado: "
-         << xp0 << ", "
-         << k10 << ", "
-         << k20 << ", "
-         << k30 << ", "
-         << k40 << ", "
-         << endl;*/
 }
 
 void Runge_Kutta::init() {
@@ -66,8 +58,9 @@ void Runge_Kutta::init() {
     _xsize_inv = 1.0 / _xsize;
     _ysize_inv = 1.0 / _ysize;
     _zsize_inv = 1.0 / _zsize;
-    _cx = (_xsize / 2.0)*_xsize_inv;
-    _cy = (_ysize / 2.0)*_ysize_inv;
+
+    _cx = 0.5;//(_xsize / 2.0)*_xsize_inv;
+    _cy = 0.5;//(_ysize / 2.0)*_ysize_inv;
 
 
     _fx = 1.0;

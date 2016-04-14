@@ -19,9 +19,10 @@ public:
                  const bool inv = false) const;
 
     // Convenient getters
-    const float xsize_inv()  const {return _xsize_inv; }
-    const float ysize_inv()  const {return _ysize_inv; }
-    const float zsize_inv()  const {return _zsize_inv; }
+    const float diffX_px()  const {return _diffX_px; }
+    const float diffY_px()  const {return _diffY_px; }
+    const float diffZ_px()  const {return _diffZ_px; }
+
     const float x0()  const {return _x0; }
     const float y0()  const {return _y0; }
     const float z0()  const {return _z0; }

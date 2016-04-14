@@ -109,9 +109,9 @@ void Particle::add(int x, int y, int z)
 
                     /// \todo center of mass
                     // Distance to the result from Runge-kutta
-                    float xt = (xp0 - (xh*(_rk.xsize_inv()) + (_rk.x0() + _rk.cx())));
-                    float yt = (xp1 - (yh*(_rk.ysize_inv()) + (_rk.y0() + _rk.cy())));
-                    float zt = (xp2 - (zh*(_rk.zsize_inv()) +  _rk.z0()));
+                    float xt = (xp0 - (xh*(_rk.diffX_px()) + (_rk.x0() + _rk.cx())));
+                    float yt = (xp1 - (yh*(_rk.diffY_px()) + (_rk.y0() + _rk.cy())));
+                    float zt = (xp2 - (zh*(_rk.diffZ_px()) +  _rk.z0()));
 
                     float dist = sqrt(xt*xt + yt*yt + zt*zt);
 
