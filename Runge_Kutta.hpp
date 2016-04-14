@@ -19,9 +19,9 @@ public:
                  const bool inv = false) const;
 
     // Convenient getters
-    const float dXm1()  const {return _dXm1; }
-    const float dYm1()  const {return _dYm1; }
-    const float dZm1()  const {return _dZm1; }
+    const float xsize_inv()  const {return _xsize_inv; }
+    const float ysize_inv()  const {return _ysize_inv; }
+    const float zsize_inv()  const {return _zsize_inv; }
     const float x0()  const {return _x0; }
     const float y0()  const {return _y0; }
     const float z0()  const {return _z0; }
@@ -31,7 +31,7 @@ public:
 
 private:
     void f1(const float v0, const float v1, const float v2,
-            std::vector<float> & res) const;
+            float &r1, float &r2, float &r3) const;
 
     void init();
 
@@ -44,9 +44,7 @@ private:
     float _fx;
     float _fy;
 
-    float _m1x;
-    float _m1y;
-    float _m1z;
+    float _xsize_inv, _ysize_inv, _zsize_inv;
 
     //3D-world limits
 
@@ -61,9 +59,9 @@ private:
     float _diffY;
     float _diffZ;
 
-    float _dXm1;
-    float _dYm1;
-    float _dZm1;
+    float _diffX_px;
+    float _diffY_px;
+    float _diffZ_px;
 };
 
 #endif // RUNGE_KUTTA_H

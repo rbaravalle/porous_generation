@@ -21,7 +21,7 @@ void Particle::init()
     z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
 
     int count = 0;
-    while(_occ(x,y,z) == 0 && count < 20) {
+    while(_occ(x,y,z) == 0 && count < 30) {
         x = (int) (((double) rand() / (RAND_MAX)) * _occ.xsize());
         y = (int) (((double) rand() / (RAND_MAX)) * _occ.ysize());
         z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
@@ -86,7 +86,7 @@ void Particle::add(int x, int y, int z)
 {
     srand(time(NULL));
     
-    vector<float> runge_k_res;
+    vector<float> runge_k_res (3);
 
     _rk.compute(x, y, z, runge_k_res);
 
@@ -106,10 +106,12 @@ void Particle::add(int x, int y, int z)
                 if(! (xh == x && yh == y && zh == z) &&
                       _occ.in_texture(xh, yh, zh) &&
                       _occ(xh, yh, zh) == 1) {
+
                     /// \todo center of mass
-                    float xt = (xp0 - (xh*(_rk.dXm1()) + (_rk.x0() + _rk.cx())));
-                    float yt = (xp1 - (yh*(_rk.dYm1()) + (_rk.y0() + _rk.cy())));
-                    float zt = (xp2 - (zh*(_rk.dZm1()) +  _rk.z0()));
+                    // Distance to the result from Runge-kutta
+                    float xt = (xp0 - (xh*(_rk.xsize_inv()) + (_rk.x0() + _rk.cx())));
+                    float yt = (xp1 - (yh*(_rk.ysize_inv()) + (_rk.y0() + _rk.cy())));
+                    float zt = (xp2 - (zh*(_rk.zsize_inv()) +  _rk.z0()));
 
                     float dist = sqrt(xt*xt + yt*yt + zt*zt);
 

@@ -36,7 +36,7 @@ void output(const VolumetricTexture& occ,
 {
     // create dir if not exist
 
-    cout << "Outputting image file: " << filename << endl;
+    cout << "Outputting " << occ.zsize() << " image files: " << path + filename << endl;
 
     for(int i = 0; i < occ.zsize(); i++)
         output_slice(occ, i,
@@ -45,15 +45,18 @@ void output(const VolumetricTexture& occ,
 
 int main()
 {
+    /// \todo put into a class and load from disk
     // init variables
     int xsize = 256;
     int ysize = 256;
     int zsize = 10;
-    int max_size = xsize * ysize * zsize;
-    float randomness = 0.1;
-    float randomness_z = 0.1;
+    float randomness = 0.08;
+    float randomness_z = 0.0;
     int max_particles = 20000;
     int max_it = 1000;
+
+    int max_size = xsize * ysize * zsize;
+
 
     porous::Porous porous(xsize, ysize, zsize,
                   max_size,

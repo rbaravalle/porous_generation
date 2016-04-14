@@ -45,7 +45,6 @@ void Porous::algorithm() {
 
         if(i%5 == 0) {
             cout << "////// ITERATION " << i << endl;
-            cout << endl << endl;
 
             if(!succeeded) {
                 cout << "After " << i << " iterations no particle can progress, finishing..." << endl;

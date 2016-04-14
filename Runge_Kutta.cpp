@@ -9,12 +9,13 @@ using namespace std;
 void Runge_Kutta::f1(const float v0,
                      const float v1,
                      const float v2,
-                     std::vector<float> & res) const
+                     float & r1,
+                     float & r2,
+                     float & r3) const
 {
-    res.clear();
-    res.push_back(v1);
-    res.push_back(-sin(v0));
-    res.push_back(0);
+    r1 = v1;
+    r2 = -sin(v0);
+    r3 = 0;
 }
 
 void Runge_Kutta::compute(const int x, const int y, const int z,
@@ -23,37 +24,22 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
 {
     res.clear();
 
-    float xp0 = x*(_dXm1)+(_x0+_cx);
-    float xp1 = y*(_dYm1)+(_y0+_cy);
-    float xp2 = z*(_dZm1)+(_z0);
+    float xp0 = x*(_xsize_inv)+(_x0+_cx);
+    float xp1 = y*(_ysize_inv)+(_y0+_cy);
+    float xp2 = z*(_zsize_inv)+(_z0);
 
-    std::vector<float> temp_1 (3), temp_2 (3), temp_3 (3), temp_4 (3);
 
-    // using f1
+    float k10, k11, k12, k20, k21, k22, k30, k31, k32,
+          k40, k41, k42;
 
-    f1(xp0,xp1,xp2, temp_1);
+    f1(xp0,xp1,xp2, k10, k11, k12);
+    f1(xp0 + k10*0.5, xp1 + k11*0.5, xp2 + k12*0.5,
+       k20, k21, k22);
 
-    float k10 = temp_1[0];
-    float k11 = temp_1[1];
-    float k12 = temp_1[2];
+    f1(xp0 + k20*0.5, xp1 + k21*0.5, xp2 + k22*0.5,
+       k30, k31, k32);
 
-    f1(xp0 + k10*0.5, xp1 + k11*0.5, xp2 + k12*0.5, temp_2);
-
-    float k20 = temp_2[0];
-    float k21 = temp_2[1];
-    float k22 = temp_2[2];
-
-    f1(xp0 + k20*0.5, xp1 + k21*0.5, xp2 + k22*0.5, temp_3);
-
-    float k30 = temp_3[0];
-    float k31 = temp_3[1];
-    float k32 = temp_3[2];
-
-    f1(xp0+k30, xp1+k31, xp2+k32, temp_4);
-
-    float k40 = temp_4[0];
-    float k41 = temp_4[1];
-    float k42 = temp_4[2];
+    f1(xp0+k30, xp1+k31, xp2+k32, k40, k41, k42);
 
     float u6 = 1.0/6.0;
 
@@ -61,9 +47,9 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
     // inverse
     if(inv) dT *= -1;
 
-    res.push_back(xp0 + dT*(k10 + k20*2.0 + k30*2.0 + k40)*u6);
-    res.push_back(xp1 + dT*(k11 + k21*2.0 + k31*2.0 + k41)*u6);
-    res.push_back(xp2 + dT*(k12 + k22*2.0 + k32*2.0 + k42)*u6);
+    res[0] = xp0 + dT*(k10 + k20*2.0 + k30*2.0 + k40)*u6;
+    res[1] = xp1 + dT*(k11 + k21*2.0 + k31*2.0 + k41)*u6;
+    res[2] = xp2 + dT*(k12 + k22*2.0 + k32*2.0 + k42)*u6;
 
     /*cout << "Resultado: "
          << xp0 << ", "
@@ -77,11 +63,11 @@ void Runge_Kutta::compute(const int x, const int y, const int z,
 void Runge_Kutta::init() {
 
     assert(_xsize > 0);
-    _m1x = 1.0 / _xsize;
-    _m1y = 1.0 / _ysize;
-    _m1z = 1.0 / _zsize;
-    _cx = _xsize / 2.0;
-    _cy = _ysize / 2.0;
+    _xsize_inv = 1.0 / _xsize;
+    _ysize_inv = 1.0 / _ysize;
+    _zsize_inv = 1.0 / _zsize;
+    _cx = (_xsize / 2.0)*_xsize_inv;
+    _cy = (_ysize / 2.0)*_ysize_inv;
 
 
     _fx = 1.0;
@@ -94,12 +80,15 @@ void Runge_Kutta::init() {
     _z0 = -1;
     _z1 = 1;
 
+    // diffs in world coordinates
     _diffX = _x1-_x0;
     _diffY = _y1-_y0;
     _diffZ = _z1-_z0;
 
-    _dXm1 = _diffX * _m1x;
-    _dYm1 = _diffY * _m1y;
-    _dZm1 = _diffZ * _m1z;
+    // how much in world-coordinates correspond to a pixel
+    // example: diff: 6.0 xsize: 128 => diffX_px = 6.0/128
+    _diffX_px = _diffX * _xsize_inv;
+    _diffY_px = _diffY * _ysize_inv;
+    _diffZ_px = _diffZ * _zsize_inv;
 
 }
