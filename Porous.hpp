@@ -2,6 +2,7 @@
 #define POROUS_H
 
 #include <iostream>
+#include <QObject>
 
 #include"Particle.hpp"
 #include"Volumetric_texture.hpp"
@@ -10,7 +11,10 @@ using namespace std;
 
 namespace porous {
 
-class Porous {
+class Porous// : public QOBJECT
+{
+    //Q_OBJECT
+
 public:
 
     Porous(const int xsize, const int ysize, const int zsize,
@@ -38,6 +42,8 @@ public:
 
     vector<porous::Particle>& particles() { return _particles;}
 
+/*public slots:
+    void test() { cout << "TEST OK!" << endl; }*/
 
 private:
     vector<porous::Particle> _particles;
