@@ -2,6 +2,7 @@
 
 #include"Porous.hpp"
 #include"Image.h"
+#include<ctime>
 
 using namespace std;
 
@@ -50,8 +51,8 @@ int main()
     int xsize = 256;
     int ysize = 256;
     int zsize = 10;
-    float randomness = 0.09;
-    float randomness_z = 0.5;
+    float randomness = 0.1;
+    float randomness_z = 0.35;
     int max_particles = 20000;
     int max_it = 1000;
 
@@ -65,8 +66,14 @@ int main()
                   max_particles,
                   max_it);
 
+    clock_t begin = clock(), end;
     // compute
     porous.algorithm();
+
+    end = clock();
+
+    cout << "Total time: "
+         <<   double(end - begin) / CLOCKS_PER_SEC << endl;
 
     // output results
     output(porous.occ(),
