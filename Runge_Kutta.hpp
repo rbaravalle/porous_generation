@@ -42,11 +42,6 @@ private:
 
     float _dT;
 
-    float _fx;
-    float _fy;
-
-    float _xsize_inv, _ysize_inv, _zsize_inv;
-
     //3D-world limits
 
     float _x0;
@@ -55,10 +50,6 @@ private:
     float _y1;
     float _z0;
     float _z1;
-
-    float _diffX;
-    float _diffY;
-    float _diffZ;
 
     float _diffX_px;
     float _diffY_px;

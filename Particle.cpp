@@ -76,9 +76,6 @@ bool Particle::grow()
 
     if(_size > _max_size) _alive = false;
 
-    //cout << "Size of particle " << _id << " after growing: "
-    //     << _size << endl;
-
     return succeeded;
 }
 
@@ -98,7 +95,7 @@ void Particle::add(int x, int y, int z)
     int best_y = std::numeric_limits<int>::max();
     int best_z = std::numeric_limits<int>::max();
 
-    int dist_min = std::numeric_limits<int>::max();
+    float dist_min = std::numeric_limits<float>::max();
 
     for(int xh = x - 1; xh <= x + 1; xh++) {
         for(int yh = y - 1; yh <= y + 1; yh++) {
