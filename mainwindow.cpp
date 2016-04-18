@@ -67,7 +67,6 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::test_porous() {
-    /// \todo put into a class and load from disk
     // init variables
 
     int xsize = ui->spinBox_xsize->value();
