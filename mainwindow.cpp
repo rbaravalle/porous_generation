@@ -70,15 +70,15 @@ void MainWindow::test_porous() {
     /// \todo put into a class and load from disk
     // init variables
 
-    cout << "EEEE" << endl;
+    int xsize = ui->spinBox_xsize->value();
+    int ysize = ui->spinBox_ysize->value();
+    int zsize = ui->spinBox_zsize->value();
 
-    int xsize = 256;
-    int ysize = 256;
-    int zsize = 10;
-    float randomness = 0.1;
-    float randomness_z = 0.35;
-    int max_particles = 20000;
-    int max_it = 1000;
+    int max_it = ui->spinBox_max_it->value();
+    int max_particles = ui->spinBox_max_particles->value();
+
+    float randomness = ui->spinBox_randomness->value();
+    float randomness_z = ui->spinBox_randomness_z->value();
 
     int max_size = xsize * ysize * zsize;
 
