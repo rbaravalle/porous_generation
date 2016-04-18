@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include"Porous.hpp"
+#include"test_porous.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +20,6 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    porous::Porous *porous_object;
 
 public slots:
     void test_porous();

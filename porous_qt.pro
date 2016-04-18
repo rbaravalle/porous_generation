@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     Pixel.cpp \
     Porous.cpp \
     Runge_Kutta.cpp \
-    Volumetric_texture.cpp
+    Volumetric_texture.cpp \
+    test_porous.cpp
 
 HEADERS  += mainwindow.h \
     Image.h \
@@ -30,6 +31,7 @@ HEADERS  += mainwindow.h \
     Porous.hpp \
     Runge_Kutta.hpp \
     Volumetric_texture.hpp \
-    Particle.hpp
+    Particle.hpp \
+    test_porous.h
 
 FORMS    += mainwindow.ui
