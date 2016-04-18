@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>445</width>
-    <height>358</height>
+    <width>676</width>
+    <height>441</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -182,13 +182,26 @@
      </item>
     </layout>
    </widget>
+   <widget class="QLabel" name="image_label">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>60</y>
+      <width>291</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Resulting Image</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>445</width>
+     <width>676</width>
      <height>25</height>
     </rect>
    </property>

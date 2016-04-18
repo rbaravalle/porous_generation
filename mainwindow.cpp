@@ -99,10 +99,29 @@ void MainWindow::test_porous() {
     cout << "Total time: "
          <<   double(end - begin) / CLOCKS_PER_SEC << endl;
 
+    // output to Qt GUI
+    output_gui(porous.occ());
+
     // output results
     output(porous.occ(),
            "/home/rodrigo/result/",
            "porous.tga");
 
     cout << "Success!" << endl;
+}
+
+void MainWindow::output_gui(const VolumetricTexture& occ) const
+{
+    QImage img(occ.xsize(), occ.ysize(), QImage::Format_Mono);
+
+    int slice = 0;
+
+    //Loop through image and set all pixels
+    for(int x=0; x< occ.xsize(); x++)
+        for(int y=0; y< occ.ysize(); y++)
+        {
+            img.setPixel(x,y,occ(x, y, slice));
+        }
+
+    ui->image_label->setPixmap(QPixmap::fromImage(img));
 }

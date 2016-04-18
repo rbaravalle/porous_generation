@@ -16,6 +16,8 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+    void output_gui(const VolumetricTexture& occ) const;
+
 private:
     Ui::MainWindow *ui;
     porous::Porous *porous_object;
