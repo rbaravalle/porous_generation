@@ -72,6 +72,7 @@ void MainWindow::test_porous() {
     int xsize = ui->spinBox_xsize->value();
     int ysize = ui->spinBox_ysize->value();
     int zsize = ui->spinBox_zsize->value();
+    int separation = ui->spinBox_separation->value();
 
     int max_it = ui->spinBox_max_it->value();
     int max_particles = ui->spinBox_max_particles->value();
@@ -83,6 +84,7 @@ void MainWindow::test_porous() {
 
 
     porous::Porous porous(xsize, ysize, zsize,
+                  separation,
                   max_size,
                   randomness,
                   randomness_z,

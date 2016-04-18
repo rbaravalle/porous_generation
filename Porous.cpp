@@ -12,7 +12,7 @@ void Porous::init_particles()
     for(int i = 0; i < _max_particles; i++) {
 
         porous::Particle p(i, _randomness, _randomness_z,
-                           true, _max_size, 1,
+                           true, _max_size, _separation,
                            _rk, _occ, _owner);
 
         if(p.grow())

@@ -22,8 +22,7 @@ SOURCES += main.cpp\
     Pixel.cpp \
     Porous.cpp \
     Runge_Kutta.cpp \
-    Volumetric_texture.cpp \
-    test.cpp
+    Volumetric_texture.cpp
 
 HEADERS  += mainwindow.h \
     Image.h \

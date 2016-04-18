@@ -11,19 +11,20 @@ using namespace std;
 
 namespace porous {
 
-class Porous// : public QOBJECT
+class Porous
 {
-    //Q_OBJECT
 
 public:
 
     Porous(const int xsize, const int ysize, const int zsize,
+           const int separation,
            const int max_size,
            const float randomness,
            const float randomness_z,
            const int max_particles,
            const int max_it) :
         _xsize(xsize), _ysize(ysize), _zsize(zsize),
+        _separation(separation),
         _max_size(max_size),
         _max_it(max_it),
         _max_particles(max_particles),
@@ -49,6 +50,7 @@ private:
     Runge_Kutta _rk;
 
     int _xsize, _ysize, _zsize;
+    int _separation;
     int _max_size;
 
     int _max_it;
