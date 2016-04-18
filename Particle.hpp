@@ -43,19 +43,20 @@ class Particle {
 
     private:
         int _id;
-        int _size;
         float _randomness;
         float _randomness_z;
         bool _alive;
         int _max_size;
         int _sep;
 
-        std::vector<std::vector<int>> _boundary;
-
-        /// Instances
-        const Runge_Kutta & _rk;
         VolumetricTexture & _occ;
         VolumetricTexture & _owner;
+
+        const Runge_Kutta & _rk;
+
+        std::vector<std::vector<int> > _boundary;
+
+        int _size;
 
         /// Methods
 

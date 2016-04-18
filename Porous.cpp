@@ -33,12 +33,12 @@ void Porous::algorithm() {
 
 
         bool succeeded = false;
-        int id;
+        //int id;
 
-        for(int p = 0; p < _particles.size(); p++) {
+        for(int p = 0; p < (int)_particles.size(); p++) {
             bool grow = _particles[p].grow();
             if(grow) {
-                id = p;
+                //id = p;
                 succeeded = true;
             }
         }

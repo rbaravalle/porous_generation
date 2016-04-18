@@ -19,16 +19,16 @@ public:
                  const bool inv = false) const;
 
     // Convenient getters
-    const float diffX_px()  const {return _diffX_px; }
-    const float diffY_px()  const {return _diffY_px; }
-    const float diffZ_px()  const {return _diffZ_px; }
+    const float& diffX_px()  const {return _diffX_px; }
+    const float& diffY_px()  const {return _diffY_px; }
+    const float& diffZ_px()  const {return _diffZ_px; }
 
-    const float x0()  const {return _x0; }
-    const float y0()  const {return _y0; }
-    const float z0()  const {return _z0; }
+    const float& x0()  const {return _x0; }
+    const float& y0()  const {return _y0; }
+    const float& z0()  const {return _z0; }
 
-    const float cx()  const {return _cx; }
-    const float cy()  const {return _cy; }
+    const float& cx()  const {return _cx; }
+    const float& cy()  const {return _cy; }
 
 private:
     void f1(const float v0, const float v1, const float v2,
@@ -37,10 +37,11 @@ private:
     void init();
 
 private:
-    int _xsize, _ysize, _zsize;
-    int _cx, _cy;
-
     float _dT;
+
+    int _xsize, _ysize, _zsize;
+    float _cx, _cy;
+
 
     //3D-world limits
 

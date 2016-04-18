@@ -25,14 +25,14 @@ class VolumetricTexture {
         /// Overloaded access read
         const int& operator() ( const int i, const int j, const int k) const  {
             int index = i + j * _xsize + k * (_xsize*_ysize);
-            assert( index < _data.size());
+            assert( index < (int)_data.size());
             return _data[index];
         }
 
         /// Overloaded access read/write
         int& operator()( const int i, const int j, const int k) {
             int index = i + j * _xsize + k * (_xsize*_ysize);
-            assert( index < _data.size());
+            assert( index < (int)_data.size());
             return _data[index];
         }
 

@@ -30,6 +30,7 @@ HEADERS  += mainwindow.h \
     Pixel.hpp \
     Porous.hpp \
     Runge_Kutta.hpp \
-    Volumetric_texture.hpp
+    Volumetric_texture.hpp \
+    Particle.hpp
 
 FORMS    += mainwindow.ui

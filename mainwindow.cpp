@@ -2,6 +2,14 @@
 #include "ui_mainwindow.h"
 #include"Porous.hpp"
 #include"Image.h"
+#include <sstream>
+
+template < typename T > std::string to_string( const T& n )
+{
+    std::ostringstream stm ;
+    stm << n ;
+    return stm.str() ;
+}
 
 void output_slice(const VolumetricTexture& occ,
                   const int slice,

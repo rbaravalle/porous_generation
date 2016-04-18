@@ -42,9 +42,6 @@ public:
 
     vector<porous::Particle>& particles() { return _particles;}
 
-/*public slots:
-    void test() { cout << "TEST OK!" << endl; }*/
-
 private:
     vector<porous::Particle> _particles;
     VolumetricTexture _occ;
@@ -53,10 +50,13 @@ private:
 
     int _xsize, _ysize, _zsize;
     int _max_size;
+
+    int _max_it;
+    int _max_particles;
+
     float _randomness;
     float _randomness_z;
-    int _max_particles;
-    int _max_it;
+
 
 private:
     void init_particles();
