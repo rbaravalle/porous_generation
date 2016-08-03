@@ -13,10 +13,14 @@ void Runge_Kutta::f1(const float v0,
                      float & r2,
                      float & r3) const
 {
-    r1 = v1;
+    /*r1 = v1;
     r2 = -sin(v0);
-    r3 = 0.0;
+    r3 = 0.0;*/
+    r1 = 0.0;
+    r2 = 0.0;
+    r3 = 1.0;
 }
+
 
 void Runge_Kutta::compute(const int x, const int y, const int z,
          std::vector<float> & res,

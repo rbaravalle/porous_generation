@@ -43,7 +43,7 @@ void MainWindow::output_gui(const VolumetricTexture& occ) const
     cout << "occ: " << occ.xsize() << endl;
     QImage img(occ.xsize(), occ.ysize(), QImage::Format_Mono);
 
-    int slice = 0;
+    int slice = occ.zsize()/2;
 
     //Loop through image and set all pixels
     for(int x=0; x< occ.xsize(); x++)

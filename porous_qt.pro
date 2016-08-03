@@ -12,6 +12,7 @@ TARGET = porous_qt
 TEMPLATE = app
 
 CONFIG += c++11
+QMAKE_CXXFLAGS += -std=c++11
 
 
 

@@ -21,7 +21,7 @@ void Particle::init()
     z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
 
     int count = 0;
-    while(_occ(x,y,z) == 0 && count < 30) {
+    while(_occ(x,y,z) == 0 && count < 2000) {
         x = (int) (((double) rand() / (RAND_MAX)) * _occ.xsize());
         y = (int) (((double) rand() / (RAND_MAX)) * _occ.ysize());
         z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
