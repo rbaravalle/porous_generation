@@ -63,9 +63,6 @@ void Runge_Kutta::init() {
     float ysize_inv = 1.0 / _ysize;
     float zsize_inv = 1.0 / _zsize;
 
-    _cx = (_xsize / 2.0)*_diffX_px;
-    _cy = (_ysize / 2.0)*_diffY_px;
-
 
     float fx = 1.0;
     float fy = 1.0;
@@ -88,4 +85,6 @@ void Runge_Kutta::init() {
     _diffY_px = diffY * ysize_inv;
     _diffZ_px = diffZ * zsize_inv;
 
+    _cx = (_x0 + _x1) / 2.0;
+    _cy = (_y0 + _y1) / 2.0;
 }
