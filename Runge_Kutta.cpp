@@ -17,8 +17,8 @@ void Runge_Kutta::f1(const float v0,
     r2 = -sin(v0);
     r3 = 0.0;*/
     r1 = 0.0;
-    r2 = 0.0;
-    r3 = 1.0;
+    r2 = 1.0;
+    r3 = 0.0;
 }
 
 

@@ -26,7 +26,7 @@ void output_slice(const VolumetricTexture& occ,
             c.g = 255*occ(x, y, slice);
             c.b = 255*occ(x, y, slice);
             c.a = 255;
-            img.setPixel(c,x,y);
+            img.setPixel(c,y,x);
         }
 
     //write the image to disk
