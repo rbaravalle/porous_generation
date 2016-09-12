@@ -9,6 +9,37 @@ using namespace std;
 
 namespace porous {
 
+void uneven(const int& xs, int & x) {
+    double tmp = (double) rand() / (RAND_MAX);
+    if(tmp > 0.5) {
+        double tmp2 = (double) rand() / (RAND_MAX);
+        if(tmp2 > 0.5) {
+            // top
+            x = (int) (((double) rand() / (RAND_MAX)) * (xs/8.0));
+        }
+        else {
+            // bottom
+            x = (int) (((double) rand() / (RAND_MAX)) * (xs/8.0)) + (7.0*xs/8.0);
+        }
+    }
+    else {
+        x = (int) (((double) rand() / (RAND_MAX)) * xs);
+    }
+}
+
+void generate_random_position(const int& xs,
+                              const int& ys,
+                              const int& zs,
+                              int & x, int & y, int & z)
+{
+
+    x = (int) (((double) rand() / (RAND_MAX)) * xs);
+    uneven(ys, y);
+
+    //y = (int) (((double) rand() / (RAND_MAX)) * ys);
+    z = (int) (((double) rand() / (RAND_MAX)) * zs);
+}
+
 void Particle::init()
 {
     _size = 0;
@@ -16,15 +47,17 @@ void Particle::init()
     // initial random position
     int x,y,z;
 
-    x = (int) (((double) rand() / (RAND_MAX)) * _occ.xsize());
-    y = (int) (((double) rand() / (RAND_MAX)) * _occ.ysize());
-    z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
+    generate_random_position(_occ.xsize(),
+                             _occ.ysize(),
+                             _occ.zsize(),
+                             x, y, z);
 
     int count = 0;
     while(_occ(x,y,z) == 0 && count < 2000) {
-        x = (int) (((double) rand() / (RAND_MAX)) * _occ.xsize());
-        y = (int) (((double) rand() / (RAND_MAX)) * _occ.ysize());
-        z = (int) (((double) rand() / (RAND_MAX)) * _occ.zsize());
+        generate_random_position(_occ.xsize(),
+                                 _occ.ysize(),
+                                 _occ.zsize(),
+                                 x, y, z);
         count++;
     }
 
@@ -46,11 +79,11 @@ bool Particle::grow()
 {
     bool succeeded = false;
 
-    for(int r = 0; r < 2; r++) {
+    for(int r = 0; r < 2 && _alive==true; r++) {
         int len_boundary = _boundary.size();
 
         int h;
-        for(h = 0; h < len_boundary; h++) {
+        for(h = 0; h < len_boundary && _alive==true; h++) {
             int nx = _boundary[h][0];
             int ny = _boundary[h][1];
             int nz = _boundary[h][2];
@@ -66,6 +99,12 @@ bool Particle::grow()
                 // found!
                 break;
             }
+
+
+            if(_size > _max_size) {
+                _alive = false;
+            }
+
         }
 
 
@@ -73,8 +112,6 @@ bool Particle::grow()
         _boundary.erase(_boundary.begin(), _boundary.begin()+h);
 
     }
-
-    if(_size > _max_size) _alive = false;
 
     return succeeded;
 }

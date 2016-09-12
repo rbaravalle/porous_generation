@@ -30,7 +30,7 @@ public:
 	//set individual pixels
 	void setPixel(Colour inputcolor, int xposition, int yposition);
 
-	void WriteImage(string filename);
+    void WriteImage(std::string filename);
 
 //General getters and setters
 
