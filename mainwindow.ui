@@ -60,7 +60,7 @@
         <number>512</number>
        </property>
        <property name="value">
-        <number>256</number>
+        <number>300</number>
        </property>
       </widget>
      </item>
@@ -80,7 +80,7 @@
         <number>512</number>
        </property>
        <property name="value">
-        <number>256</number>
+        <number>300</number>
        </property>
       </widget>
      </item>
@@ -104,13 +104,13 @@
         <number>1</number>
        </property>
        <property name="maximum">
-        <number>100000</number>
+        <number>1000000</number>
        </property>
        <property name="singleStep">
         <number>1</number>
        </property>
        <property name="value">
-        <number>1500</number>
+        <number>10000</number>
        </property>
       </widget>
      </item>
@@ -137,7 +137,7 @@
         <number>512</number>
        </property>
        <property name="value">
-        <number>5</number>
+        <number>300</number>
        </property>
       </widget>
      </item>
@@ -150,7 +150,7 @@
         <double>0.050000000000000</double>
        </property>
        <property name="value">
-        <double>0.100000000000000</double>
+        <double>0.150000000000000</double>
        </property>
       </widget>
      </item>
@@ -166,7 +166,7 @@
         <double>0.050000000000000</double>
        </property>
        <property name="value">
-        <double>0.050000000000000</double>
+        <double>0.035000000000000</double>
        </property>
       </widget>
      </item>
@@ -225,7 +225,7 @@
      <x>0</x>
      <y>0</y>
      <width>676</width>
-     <height>25</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuProcedimental_Porous_Geometries">

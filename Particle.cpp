@@ -15,11 +15,11 @@ void uneven(const int& xs, int & x) {
         double tmp2 = (double) rand() / (RAND_MAX);
         if(tmp2 > 0.5) {
             // top
-            x = (int) (((double) rand() / (RAND_MAX)) * (xs/8.0));
+            x = (int) (((double) rand() / (RAND_MAX)) * (xs/4.0));
         }
         else {
             // bottom
-            x = (int) (((double) rand() / (RAND_MAX)) * (xs/8.0)) + (7.0*xs/8.0);
+            x = (int) (((double) rand() / (RAND_MAX)) * (xs/4.0)) + (3.0*xs/4.0);
         }
     }
     else {
@@ -34,10 +34,12 @@ void generate_random_position(const int& xs,
 {
 
     x = (int) (((double) rand() / (RAND_MAX)) * xs);
+    //uneven(xs, x);
     uneven(ys, y);
 
     //y = (int) (((double) rand() / (RAND_MAX)) * ys);
     z = (int) (((double) rand() / (RAND_MAX)) * zs);
+    //uneven(zs, z);
 }
 
 void Particle::init()
@@ -53,7 +55,7 @@ void Particle::init()
                              x, y, z);
 
     int count = 0;
-    while(_occ(x,y,z) == 0 && count < 2000) {
+    while(_occ(x,y,z) == 0 && count < 3000) {
         generate_random_position(_occ.xsize(),
                                  _occ.ysize(),
                                  _occ.zsize(),
@@ -65,6 +67,9 @@ void Particle::init()
         _alive = false;
         return;
     }
+
+    if(y > 0.5*_occ.ysize()) _randomness *= 8.0;
+    if(_randomness > 1.0) _randomness = 1.0;
 
     _owner(x,y,z) = _id;
 
