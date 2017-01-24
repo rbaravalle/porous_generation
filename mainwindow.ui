@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>676</width>
-    <height>441</height>
+    <height>492</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -33,54 +33,14 @@
       <x>10</x>
       <y>70</y>
       <width>311</width>
-      <height>283</height>
+      <height>341</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="1">
-      <widget class="QLabel" name="label_xsize">
-       <property name="text">
-        <string>X Size</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Max Iterations</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QSpinBox" name="spinBox_ysize">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>512</number>
-       </property>
-       <property name="value">
-        <number>190</number>
-       </property>
-      </widget>
-     </item>
      <item row="7" column="1">
       <widget class="QLabel" name="label_6">
        <property name="text">
         <string>Randomness</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QSpinBox" name="spinBox_xsize">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>512</number>
-       </property>
-       <property name="value">
-        <number>100</number>
        </property>
       </widget>
      </item>
@@ -98,38 +58,15 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QSpinBox" name="spinBox_max_particles">
-       <property name="minimum">
-        <number>1</number>
-       </property>
-       <property name="maximum">
-        <number>1000000</number>
-       </property>
-       <property name="singleStep">
-        <number>1</number>
-       </property>
-       <property name="value">
-        <number>12000</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLabel" name="label_ysize">
+     <item row="6" column="1">
+      <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>Y Size</string>
+        <string>Max Iterations</string>
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>Max Particles</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QSpinBox" name="spinBox_zsize">
+     <item row="0" column="0">
+      <widget class="QSpinBox" name="spinBox_xsize">
        <property name="minimum">
         <number>1</number>
        </property>
@@ -137,36 +74,7 @@
         <number>512</number>
        </property>
        <property name="value">
-        <number>180</number>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QDoubleSpinBox" name="spinBox_randomness_z">
-       <property name="maximum">
-        <double>1.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.050000000000000</double>
-       </property>
-       <property name="value">
-        <double>0.150000000000000</double>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QDoubleSpinBox" name="spinBox_randomness">
-       <property name="decimals">
-        <number>3</number>
-       </property>
-       <property name="maximum">
-        <double>1.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.050000000000000</double>
-       </property>
-       <property name="value">
-        <double>0.035000000000000</double>
+        <number>100</number>
        </property>
       </widget>
      </item>
@@ -180,6 +88,56 @@
        </property>
        <property name="value">
         <number>20000</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_xsize">
+       <property name="text">
+        <string>X Size</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>Max Particles</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="label_ysize">
+       <property name="text">
+        <string>Y Size</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QSpinBox" name="spinBox_ysize">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>512</number>
+       </property>
+       <property name="value">
+        <number>190</number>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QSpinBox" name="spinBox_max_particles">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>1000000</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="value">
+        <number>12000</number>
        </property>
       </widget>
      </item>
@@ -203,13 +161,78 @@
        </property>
       </widget>
      </item>
+     <item row="8" column="0">
+      <widget class="QDoubleSpinBox" name="spinBox_randomness_z">
+       <property name="maximum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.050000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.150000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QSpinBox" name="spinBox_zsize">
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>512</number>
+       </property>
+       <property name="value">
+        <number>180</number>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QDoubleSpinBox" name="spinBox_randomness">
+       <property name="decimals">
+        <number>3</number>
+       </property>
+       <property name="maximum">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>0.050000000000000</double>
+       </property>
+       <property name="value">
+        <double>0.035000000000000</double>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLabel" name="label_max_size">
+       <property name="text">
+        <string>Max Particle Size</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="0">
+      <widget class="QDoubleSpinBox" name="spinBox_max_size">
+       <property name="decimals">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <double>5000.000000000000000</double>
+       </property>
+       <property name="singleStep">
+        <double>1.000000000000000</double>
+       </property>
+       <property name="value">
+        <double>400.000000000000000</double>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QLabel" name="image_label">
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>60</y>
+      <y>80</y>
       <width>291</width>
       <height>281</height>
      </rect>
@@ -225,7 +248,7 @@
      <x>0</x>
      <y>0</y>
      <width>676</width>
-     <height>19</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuProcedimental_Porous_Geometries">

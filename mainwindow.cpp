@@ -30,6 +30,7 @@ void MainWindow::test_porous() {
             ui->spinBox_separation->value(),
             ui->spinBox_max_it->value(),
             ui->spinBox_max_particles->value(),
+            ui->spinBox_max_size->value(),
             ui->spinBox_randomness->value(),
             ui->spinBox_randomness_z->value());
 
