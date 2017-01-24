@@ -51,7 +51,7 @@ void output(const VolumetricTexture& occ,
 void Test_Porous::run()
 {
 
-    int max_size = 500; //_xsize * _ysize * _zsize;
+    int max_size = 120; //_xsize * _ysize * _zsize;
 
 
     porous::Porous porous(_xsize, _ysize, _zsize,

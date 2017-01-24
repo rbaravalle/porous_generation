@@ -35,9 +35,9 @@ void generate_random_position(const int& xs,
 
     x = (int) (((double) rand() / (RAND_MAX)) * xs);
     //uneven(xs, x);
-    uneven(ys, y);
+    //uneven(ys, y);
 
-    //y = (int) (((double) rand() / (RAND_MAX)) * ys);
+    y = (int) (((double) rand() / (RAND_MAX)) * ys);
     z = (int) (((double) rand() / (RAND_MAX)) * zs);
     //uneven(zs, z);
 }
@@ -55,7 +55,7 @@ void Particle::init()
                              x, y, z);
 
     int count = 0;
-    while(_occ(x,y,z) == 0 && count < 3000) {
+    while(_occ(x,y,z) == 0 && count < 5000) {
         generate_random_position(_occ.xsize(),
                                  _occ.ysize(),
                                  _occ.zsize(),
@@ -68,7 +68,7 @@ void Particle::init()
         return;
     }
 
-    if(y > 0.5*_occ.ysize()) _randomness *= 8.0;
+    //if(y > 0.5*_occ.ysize()) _randomness *= 8.0;
     if(_randomness > 1.0) _randomness = 1.0;
 
     _owner(x,y,z) = _id;
