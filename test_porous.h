@@ -5,12 +5,23 @@
 #include"Volumetric_texture.hpp"
 
 
+
+void output_texture(const VolumetricTexture& occ,
+                    const std::string& path,
+                    const std::string& filename);
+
 class Test_Porous
 {
 public:
-    Test_Porous(const int xsize, const int ysize, const int zsize,
-    const int separation, const int max_it, const int max_particles, const int max_size,
-    const float randomness, const float randomness_z) :
+    Test_Porous(const int xsize,
+                const int ysize,
+                const int zsize,
+                const int separation,
+                const int max_it,
+                const int max_particles,
+                const int max_size,
+                const float randomness,
+                const float randomness_z) :
     _xsize(xsize), _ysize(ysize), _zsize(zsize),
     _separation(separation), _max_it(max_it), _max_particles(max_particles), _max_size(max_size),
     _randomness(randomness), _randomness_z(randomness_z)
@@ -18,9 +29,6 @@ public:
 
     const VolumetricTexture& result() const {return _volume;}
 
-signals:
-
-public slots:
     void run();
 
 private:

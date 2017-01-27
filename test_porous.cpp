@@ -34,17 +34,19 @@ void output_slice(const VolumetricTexture& occ,
 
 }
 
-void output(const VolumetricTexture& occ,
-            const string& path,
-            const string& filename)
+void output_texture(const VolumetricTexture& occ,
+                    const string& path,
+                    const string& filename)
 {
     // create dir if not exist
 
     cout << "Outputting " << occ.zsize() << " image files: " << path + filename << endl;
 
     for(int i = 0; i < occ.zsize(); i++)
+    {
         output_slice(occ, i,
                      path + filename + to_string(i));
+    }
 }
 
 
@@ -72,9 +74,9 @@ void Test_Porous::run()
     _volume = porous.occ();
 
     // output results
-    output(_volume,
-           "/home/rodrigo/result/",
-           "porous.tga");
+    output_texture(_volume,
+                   "/home/rodrigo/result/",
+                   "porous.tga");
 
     cout << "Success!" << endl;
 }

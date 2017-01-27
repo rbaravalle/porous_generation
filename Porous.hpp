@@ -2,7 +2,6 @@
 #define POROUS_H
 
 #include <iostream>
-#include <QObject>
 
 #include"Particle.hpp"
 #include"Volumetric_texture.hpp"
