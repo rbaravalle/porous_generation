@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     }
 
     cout << "Arguments: " ;
-    for(int i = 0; i < argc; i++)
+    for(int i = 1; i < argc; i++)
     {
         cout << atof(argv[i]) << ", ";
     }
