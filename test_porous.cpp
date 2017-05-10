@@ -40,7 +40,7 @@ void output_texture(const VolumetricTexture& occ,
 {
     // create dir if not exist
 
-    cout << "Outputting " << occ.zsize() << " image files: " << path + filename << endl;
+    //cout << "Outputting " << occ.zsize() << " image files: " << path + filename << endl;
 
     for(int i = 0; i < occ.zsize(); i++)
     {
@@ -67,8 +67,8 @@ void Test_Porous::run()
 
     end = clock();
 
-    cout << "Total time: "
-         <<   double(end - begin) / CLOCKS_PER_SEC << endl;
+    /*cout << "Total time: "
+         <<   double(end - begin) / CLOCKS_PER_SEC << endl;*/
 
     // Save result
     _volume = porous.occ();
@@ -78,5 +78,5 @@ void Test_Porous::run()
                    "/home/rodrigo/result/",
                    "porous.tga");
 
-    cout << "Success!" << endl;
+    //cout << "Success!" << endl;
 }

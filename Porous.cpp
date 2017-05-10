@@ -5,7 +5,7 @@ namespace porous {
 
 void Porous::init_particles()
 {
-    cout << "Fitting " << _max_particles << " particles..." << endl;
+    //cout << "Fitting " << _max_particles << " particles..." << endl;
 
     _particles.clear();
 
@@ -19,15 +19,15 @@ void Porous::init_particles()
             _particles.push_back(p);
 
     }
-    cout << "Amount of particles created: " << _particles.size() << endl;
+    //cout << "Amount of particles created: " << _particles.size() << endl;
 
 }
 
 void Porous::algorithm() {
     init_particles();
 
-    cout << "/////////////////// ALGORITHM..." << endl;
-    cout << endl << endl;
+    //cout << "/////////////////// ALGORITHM..." << endl;
+    //cout << endl << endl;
 
     for(int i = 0; i < _max_it; i++) {
 
@@ -44,10 +44,10 @@ void Porous::algorithm() {
         }
 
         if(i%5 == 0) {
-            cout << "////// ITERATION " << i << endl;
+            //cout << "////// ITERATION " << i << endl;
 
             if(!succeeded) {
-                cout << "After " << i << " iterations no particle can progress, finishing..." << endl;
+                //cout << "After " << i << " iterations no particle can progress, finishing..." << endl;
                 break;
             }
         }

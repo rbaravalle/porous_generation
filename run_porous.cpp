@@ -10,12 +10,12 @@ int main(int argc, char **argv)
         return -1;
     }
 
-    cout << "Arguments: " ;
+    /*cout << "Arguments: " ;
     for(int i = 1; i < argc; i++)
     {
         cout << atof(argv[i]) << ", ";
     }
-    cout << endl;
+    cout << endl;*/
 
     Test_Porous test(100, 190, 180, 1,
                      atof(argv[1]), // max iterations
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
                    "/home/rodrigo/result/",
                    "porous.tga");
 
-    cout << "Success!" << endl;
+    //cout << "Success!" << endl;
 
     return 0;
 }
